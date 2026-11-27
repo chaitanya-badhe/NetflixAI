@@ -1,21 +1,33 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore } from "firebase/firestore";
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyAl1lcwEIQrKscPVuHmrVV1IVeMKHgqiBA",
-  authDomain: "netflixai-7aa9c.firebaseapp.com",
-  projectId: "netflixai-7aa9c",
-  storageBucket: "netflixai-7aa9c.firebasestorage.app",
-  messagingSenderId: "53188109020",
-  appId: "1:53188109020:web:c4d6ee4ca9b349876a8a19",
-  measurementId: "G-MENJ9GRXXS"
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
+  authDomain: import.meta.env.VITE_FIREBASE_AUTH_DOMAIN,
+  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
+  storageBucket: import.meta.env.VITE_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: import.meta.env.VITE_FIREBASE_MESSAGING_SENDER_ID,
+  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  measurementId: import.meta.env.VITE_FIREBASE_MEASUREMENT_ID
 };
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
+const requiredConfig = [
+  "apiKey",
+  "authDomain",
+  "projectId",
+  "storageBucket",
+  "messagingSenderId",
+  "appId"
+];
+const missingConfig = requiredConfig.filter((key) => !firebaseConfig[key]);
+
+if (missingConfig.length > 0) {
+  throw new Error(
+    `Missing Firebase configuration: ${missingConfig.join(", ")}. Check your .env.local file.`
+  );
+}
+
+export const app = initializeApp(firebaseConfig);
+export const db = getFirestore(app);
+getAnalytics(app);

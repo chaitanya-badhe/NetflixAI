@@ -1,5 +1,15 @@
 # NetflixAI
 
+-create vite
+-Configured TailWindCSS
+-Header 
+-Routing of APP
+-Login form 
+-Sign Up Form
+-Form Validation 
+-useRef hook
+
+
 # Features
 -Login/Sign Up
     -Sign In / SignUp Form 
