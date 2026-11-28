@@ -1,5 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
+import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -31,3 +32,5 @@ if (missingConfig.length > 0) {
 export const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 getAnalytics(app);
+
+export const auth = getAuth(app);
